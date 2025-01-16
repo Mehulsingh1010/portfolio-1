@@ -14,22 +14,23 @@ import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
 import katakana from './katakana.svg';
 import styles from './profile.module.css';
-
+import me from '~/assets/me.jpg';
+import me2 from '~/assets/me2.jpg';
 const ProfileText = ({ visible, titleId }) => (
   <Fragment>
     <Heading className={styles.title} data-visible={visible} level={3} id={titleId}>
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
-      animations, and icon illustration. Being comfortable with code allows me to rapidly
+      I’m Mehul, currently pursuing my bachelors degree from Vellore Institution of Technology, working as an SDE intern at{' '}
+      <Link href="https://www.qwilr.com">Prefer Coding Secret</Link>. My projects include Fullstack Dev, UI
+      and UX, and GenAi integrations. Being comfortable with code allows me to rapidly create,
       prototype and validate experiences. If you’re interested in the tools and software I
       use check out my <Link href="/uses">uses page</Link>.
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
+      In my spare time I like to practice Music, play video games, and{' '}
+      <Link href="/projects/volkihar-knight">develope content pages</Link>. I’m always down for hearing
       about new projects, so feel free to drop me a line.
     </Text>
   </Fragment>
@@ -82,7 +83,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   reveal
                   delay={100}
                   placeholder={profileImgPlaceholder}
-                  srcSet={`${profileImg} 480w, ${profileImgLarge} 960w`}
+                  srcSet={`${me2} 480w, ${me2} 960w`}
                   width={960}
                   height={1280}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}

@@ -4,16 +4,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useFetcher,
   useLoaderData,
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
-import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
+import { useState, useEffect } from 'react';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
-import { useEffect } from 'react';
 import { Error } from '~/layouts/error';
 import { VisuallyHidden } from '~/components/visually-hidden';
 import { Navbar } from '~/layouts/navbar';
@@ -23,6 +21,7 @@ import styles from './root.module.css';
 import './reset.module.css';
 import './global.module.css';
 
+// Link Preloading
 export const links = () => [
   {
     rel: 'preload',
@@ -46,51 +45,33 @@ export const links = () => [
   { rel: 'author', href: '/humans.txt', type: 'text/plain' },
 ];
 
-export const loader = async ({ request, context }) => {
-  const { url } = request;
-  const { pathname } = new URL(url);
-  const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : url;
-  const canonicalUrl = `${config.url}${pathnameSliced}`;
-
-  const { getSession, commitSession } = createCookieSessionStorage({
-    cookie: {
-      name: '__session',
-      httpOnly: true,
-      maxAge: 604_800,
-      path: '/',
-      sameSite: 'lax',
-      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
-      secure: true,
-    },
-  });
-
-  const session = await getSession(request.headers.get('Cookie'));
-  const theme = session.get('theme') || 'dark';
-
-  return json(
-    { canonicalUrl, theme },
-    {
-      headers: {
-        'Set-Cookie': await commitSession(session),
-      },
-    }
-  );
+// Loader to initialize theme
+export const loader = () => {
+  return { theme: 'dark' }; // Default to dark theme
 };
 
 export default function App() {
-  let { canonicalUrl, theme } = useLoaderData();
-  const fetcher = useFetcher();
+  const { theme: initialTheme } = useLoaderData();
   const { state } = useNavigation();
+  const { theme: initialThemeFromLoader } = useLoaderData();
+  const [currentTheme, setCurrentTheme] = useState(initialThemeFromLoader);
 
-  if (fetcher.formData?.has('theme')) {
-    theme = fetcher.formData.get('theme');
-  }
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') || 'dark';
+    setCurrentTheme(theme);
+  }, []);
 
-  function toggleTheme(newTheme) {
-    fetcher.submit(
-      { theme: newTheme ? newTheme : theme === 'dark' ? 'light' : 'dark' },
-      { action: '/api/set-theme', method: 'post' }
-    );
+  // Sync theme changes with localStorage
+  useEffect(() => {
+    if (currentTheme) {
+      localStorage.setItem('theme', currentTheme); // Save theme to localStorage
+    }
+  }, [currentTheme]);
+
+  // Toggle theme between dark and light
+  function toggleTheme() {
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setCurrentTheme(newTheme); // Update state
   }
 
   useEffect(() => {
@@ -105,19 +86,14 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
-        <meta name="theme-color" content={theme === 'dark' ? '#111' : '#F2F2F2'} />
-        <meta
-          name="color-scheme"
-          content={theme === 'light' ? 'light dark' : 'dark light'}
-        />
+        <meta name="theme-color" content={currentTheme === 'dark' ? '#111' : '#F2F2F2'} />
+        <meta name="color-scheme" content={currentTheme === 'light' ? 'light dark' : 'dark light'} />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
-        <link rel="canonical" href={canonicalUrl} />
       </head>
-      <body data-theme={theme}>
-        <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
+      <body data-theme={currentTheme}>
+        <ThemeProvider theme={currentTheme} toggleTheme={toggleTheme}>
           <Progress />
           <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
             Skip to main content
@@ -139,6 +115,7 @@ export default function App() {
   );
 }
 
+// Error Boundary for rendering errors
 export function ErrorBoundary() {
   const error = useRouteError();
 

@@ -10,6 +10,13 @@ import sliceTexture from '~/assets/slice-app.jpg';
 import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
 import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
 import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
+import ag1 from '~/assets/ag1.png';
+import mdb from '~/assets/mdb.png';
+import sd1 from '~/assets/sd1.png';
+import sd2 from '~/assets/sd2.png';
+import tt1 from '~/assets/tt1.png';
+import mm1 from '~/assets/mm1.png';
+import mm2 from '~/assets/mm2.png';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -19,7 +26,6 @@ import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
 import styles from './home.module.css';
 
-// Prefetch draco decoader wasm
 export const links = () => {
   return [
     {
@@ -49,14 +55,20 @@ export const meta = () => {
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  
   const intro = useRef();
   const projectOne = useRef();
   const projectTwo = useRef();
   const projectThree = useRef();
+  const projectFour = useRef();
+  const projectFive = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, details];
+    const initialSections = [intro, projectOne, projectTwo, projectThree, details];
+    const additionalSections = showMore ? [projectFour, projectFive] : [];
+    const sections = [...initialSections, ...additionalSections];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -80,7 +92,9 @@ export const Home = () => {
     );
 
     sections.forEach(section => {
-      sectionObserver.observe(section.current);
+      if (section.current) {
+        sectionObserver.observe(section.current);
+      }
     });
 
     indicatorObserver.observe(intro.current);
@@ -89,7 +103,7 @@ export const Home = () => {
       sectionObserver.disconnect();
       indicatorObserver.disconnect();
     };
-  }, [visibleSections]);
+  }, [visibleSections, showMore]);
 
   return (
     <div className={styles.home}>
@@ -103,16 +117,16 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="Margdarshak: Future of smart traffic management"
+        description="Developing a prototype of a smart traffic management system using IoT and ML algorithms (under development)"
         buttonText="View project"
-        buttonLink="/projects/smart-sparrow"
+        buttonLink="https://www.linkedin.com/posts/mehul-singh-73154b251_smarttraffic-trafficmanagement-machinelearning-activity-7249790864292540416-oD0-"
         model={{
           type: 'laptop',
           alt: 'Smart Sparrow lesson builder',
           textures: [
             {
-              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
+              srcSet: `${mdb} 1280w, ${sprTextureLarge} 2560w`,
               placeholder: sprTexturePlaceholder,
             },
           ],
@@ -124,20 +138,20 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
+        title="StoreDoc: Secure Storage Solution"
+        description="A robust storage system with multiple layers of security to safeguard your data."
         buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        buttonLink="https://storedoc.vercel.app/sign-in"
         model={{
           type: 'phone',
           alt: 'App login screen',
           textures: [
             {
-              srcSet: `${gamestackTexture} 375w, ${gamestackTextureLarge} 750w`,
+              srcSet: `${sd1} 375w, ${sd1} 750w`,
               placeholder: gamestackTexturePlaceholder,
             },
             {
-              srcSet: `${gamestackTexture2} 375w, ${gamestackTexture2Large} 750w`,
+              srcSet: `${sd2} 375w, ${sd2} 750w`,
               placeholder: gamestackTexture2Placeholder,
             },
           ],
@@ -148,21 +162,83 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        title="TopperTown AI: Study assistance designed for excellence!"
+        description="Generates study material based on your input! Notes/Flashcards/Quizes/FAQs + a lot more ! (under development)"
         buttonText="View project"
-        buttonLink="/projects/slice"
+        buttonLink="https://toppertown.vercel.app/"
         model={{
           type: 'laptop',
           alt: 'Annotating a biomedical image in the Slice app',
           textures: [
             {
-              srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
-              placeholder: sliceTexturePlaceholder,
+              srcSet: `${tt1} 1280w, ${tt1} 2560w`,
+              placeholder: sprTexturePlaceholder,
             },
           ],
         }}
       />
+
+      {!showMore && (
+        <div className="flex justify-center my-8">
+          <button
+            onClick={() => setShowMore(true)}
+            className="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Load More Projects
+          </button>
+        </div>
+      )}
+
+      {showMore && (
+        <>
+          <ProjectSummary
+            id="project-4"
+            alternate
+            sectionRef={projectFour}
+            visible={visibleSections.includes(projectFour.current)}
+            index={4}
+            title="MeetMe: A web app for vid calling people virtually!"
+            description="Host and record meeets endlessly! Introducing personal meet rooms now."
+            buttonText="View website"
+            buttonLink="https://storedoc.vercel.app/sign-in"
+            model={{
+              type: 'phone',
+              alt: 'App login screen',
+              textures: [
+                {
+                  srcSet: `${mm1} 375w, ${mm1} 750w`,
+                  placeholder: gamestackTexturePlaceholder,
+                },
+                {
+                  srcSet: `${mm2} 375w, ${mm2} 750w`,
+                  placeholder: gamestackTexture2Placeholder,
+                },
+              ],
+            }}
+          />
+          <ProjectSummary
+            id="project-5"
+            sectionRef={projectFive}
+            visible={visibleSections.includes(projectFive.current)}
+            index={5}
+            title="AirGlobe: Your world mapped and updated with information. Now assisted with AI"
+            description="A web app that helps you find the temperature, air quality, and atmospheric conditions of any location around the world."
+            buttonText="View project"
+            buttonLink="https://air-globe.vercel.app/"
+            model={{
+              type: 'laptop',
+              alt: 'Annotating a biomedical image in the Slice app',
+              textures: [
+                {
+                  srcSet: `${ag1} 800w, ${ag1} 1920w`,
+                  placeholder: sliceTexturePlaceholder,
+                },
+              ],
+            }}
+          />
+        </>
+      )}
+
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
