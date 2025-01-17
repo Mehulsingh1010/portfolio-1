@@ -76,7 +76,7 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
           </Text>
           <div className={styles.postFooter}>
             <Button secondary iconHoverShift icon="chevron-right" as="div">
-              Read article
+              Explore
             </Button>
             <Text className={styles.timecode} size="s">
               {timecode}
@@ -142,7 +142,7 @@ export function Articles() {
   const postsHeader = (
     <header className={styles.header}>
       <Heading className={styles.heading} level={5} as="h1">
-        <DecoderText text="Latest articles" />
+        <DecoderText text="My journey so far" />
       </Heading>
       <Barcode className={styles.barcode} />
     </header>

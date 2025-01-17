@@ -10,7 +10,7 @@ export const navLinks = [
     pathname: '/#details',
   },
   {
-    label: 'Articles',
+    label: 'Experience',
     pathname: '/articles',
   },
   {
@@ -21,18 +21,18 @@ export const navLinks = [
 
 export const socialLinks = [
   {
-    label: 'Bluesky',
-    url: `https://bsky.app/profile/${config.bluesky}`,
-    icon: 'bluesky',
-  },
-  {
     label: 'Figma',
-    url: `https://www.figma.com/${config.figma}`,
+    url: `https://www.figma.com/@mehulfigma`,
     icon: 'figma',
   },
   {
     label: 'Github',
-    url: `https://github.com/${config.github}`,
+    url: `https://github.com/mehulsingh1010`,
     icon: 'github',
+  },
+  {
+    label: 'linkedin',
+    url: `https://www.linkedin.com/in/mehul-singh-73154b251/`,
+    icon: 'linkedin',
   },
 ];

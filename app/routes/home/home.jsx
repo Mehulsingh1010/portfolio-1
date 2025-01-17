@@ -47,8 +47,8 @@ export const links = () => {
 
 export const meta = () => {
   return baseMeta({
-    title: 'Designer + Developer',
-    description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.`,
+    title: ' Developer + Designer ',
+    description: `Portfolio of Mehul Singh — a Fullstack Developer working on web apps with a focus on GenAI, user experience design, and accessibility.`,
   });
 };
 
@@ -64,6 +64,7 @@ export const Home = () => {
   const projectFour = useRef();
   const projectFive = useRef();
   const details = useRef();
+  
 
   useEffect(() => {
     const initialSections = [intro, projectOne, projectTwo, projectThree, details];
@@ -111,7 +112,9 @@ export const Home = () => {
         id="intro"
         sectionRef={intro}
         scrollIndicatorHidden={scrollIndicatorHidden}
+        
       />
+      
       <ProjectSummary
         id="project-1"
         sectionRef={projectOne}
@@ -178,16 +181,13 @@ export const Home = () => {
         }}
       />
 
-      {!showMore && (
-        <div className="flex justify-center my-8">
-          <button
-            onClick={() => setShowMore(true)}
-            className="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Load More Projects
-          </button>
-        </div>
-      )}
+{!showMore && (
+  <div className={styles.loadMoreButton}>
+    <button onClick={() => setShowMore(true)}>
+      Load More Projects
+    </button>
+  </div>
+)}
 
       {showMore && (
         <>
@@ -200,7 +200,7 @@ export const Home = () => {
             title="MeetMe: A web app for vid calling people virtually!"
             description="Host and record meeets endlessly! Introducing personal meet rooms now."
             buttonText="View website"
-            buttonLink="https://storedoc.vercel.app/sign-in"
+            buttonLink="https://meetme-two.vercel.app/sign-in"
             model={{
               type: 'phone',
               alt: 'App login screen',

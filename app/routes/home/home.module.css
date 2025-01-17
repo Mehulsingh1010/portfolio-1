@@ -1,3 +1,38 @@
 .home {
   overflow-x: hidden;
 }
+.home {
+  /* ... existing styles ... */
+}
+
+.loadMoreButton {
+  display: flex;
+  justify-content: center;
+  margin: 80px 0;
+  width: 100%;
+}
+
+.loadMoreButton button {
+  background-color: rgb(0, 45, 208);
+  border: 0;
+  border-radius: 24px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  min-width: 200px;
+  padding: 16px 32px;
+  position: relative;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.loadMoreButton button:hover {
+  background-color: rgb(0, 65, 255);
+  transform: scale(1.05);
+}
+
+.loadMoreButton button:active {
+  transform: scale(0.95);
+}

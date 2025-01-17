@@ -12,6 +12,7 @@ import { cssProps } from '~/utils/style';
 import config from '~/config.json';
 import { useHydrated } from '~/hooks/useHydrated';
 import styles from './intro.module.css';
+import resume from '~/assets/resume.pdf';
 
 const DisplacementSphere = lazy(() =>
   import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
@@ -110,6 +111,10 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
                   ))}
                 </div>
               </Heading>
+              {/* Resume Download Button */}
+              <a href={resume} download className={styles.resumeButton}>
+                Download Resume
+              </a>
             </header>
             <RouterLink
               to="/#project-1"
