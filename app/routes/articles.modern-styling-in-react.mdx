@@ -1,19 +1,18 @@
 ---
-title: You (probably) don't need CSS-in-JS
-abstract: Vanilla CSS is good now actually. Here's a couple nifty techniques for dynamically styling React components with CSS custom properties.
-date: '2022-05-01'
+title: Smart Indian Hackathon 2024
+abstract: Our team of six participated in Smart India Hackathon (SIH) 2024, reaching the semifinals with our innovative traffic signal management solution powered by artificial intelligence. We developed a functional prototype that demonstrates how AI can optimize traffic flow at intersections, while allerting the responsible contacts in emergency cases.
+from: '2022-05-01'
 banner: /static/modern-styling-in-react-banner.jpg
 featured: true
 ---
 
-When I first tried CSS-in-JS libraries like [Styled Components](https://styled-components.com/) and [Emotion](https://emotion.sh), the thing that felt right about it was passing values or state directly into the styles for a component. It really closed the loop with the concept of React where the UI is a function of state. While this was a definite advancement over the traditional way of styling React with classes and pre-processed CSS, it still had its problems.
+Our team of six participated in Smart India Hackathon (SIH) 2024, reaching the semifinals with our innovative traffic management solution. We developed an AI-powered prototype that revolutionizes traffic signal control systems. Here are some key highlights:
 
-To highlight some examples, I'll break down some typical examples using two main types of dynamic styles you'll run into with React components:
+1. **Technical Innovation:** : We developed an AI-powered traffic signal management system with a working prototype that analyzes real-time traffic patterns and optimizes signal timing at intersections, demonstrating practical application of artificial intelligence in urban infrastructure.
+2. **Team Achievement** : Working closely as a six-member team, we effectively divided responsibilities and collaborated through all development phases, from initial concept to final implementation, ultimately reaching the semifinals of this prestigious competition.
+3. **Learning Impact** : The hackathon experience enhanced our expertise in AI implementation, prototype development, and real-world problem-solving, while giving us valuable insights into tackling urban mobility challenges using technology
 
-1. **Values:** like a color, delay, or position. Anything that represents a single value for a CSS property.
-1. **States:** like a primary button variant, or a loading state each having their own set of associated styles.
-
-## Where we are today
+## Our Project Or Solution
 
 Before we get started, for comparison I'll be using SCSS (with [BEM syntax](https://css-tricks.com/bem-101/)) and Styled Components in my examples for how styling is typically approached in React. I won't cover CSS-in-JS libraries that deal with writing CSS as JavaScript objects. I think there are already good solutions out there (I'd recommend [Vanilla Extract](https://vanilla-extract.style/)) if you prefer having type checking and living more fully on the JavaScript side of things. My solution is more for those of us that like writing CSS as CSS, but want to respond to the reactivity and state of components in a better way.
 
