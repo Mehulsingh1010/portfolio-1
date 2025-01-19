@@ -55,7 +55,7 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
       <RouterLink
         unstable_viewTransition
         prefetch="intent"
-        to={`/articles/${slug}`}
+        // to={`/articles/${slug}`}
         className={styles.postLink}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
